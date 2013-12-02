@@ -10,9 +10,9 @@ describe DotProperties do
   let(:propfile) { File.expand_path('../fixtures/sample.properties', __FILE__) }
   subject { DotProperties.load(propfile) }
 
-  let(:properties) { 19 }
-  let(:comments)   { 15 }
-  let(:blanks)     { 10 }
+  let(:properties) { 21 }
+  let(:comments)   { 16 }
+  let(:blanks)     { 11 }
 
   it { should be_an_instance_of(DotProperties) }
 
@@ -107,6 +107,16 @@ describe DotProperties do
       duplicate = DotProperties.parse(subject.to_s)
       expect(duplicate.to_h).to eq(hash)
       expect(duplicate.to_a).to eq(array)
+    end
+  end
+
+  describe "content escapes" do
+    it "should parse Java-escaped unicode" do
+      expect(subject['unicode']).to eq("Command\t\u2318\nOption\t\u2325")
+    end
+
+    it "should unescape escaped entities" do
+      expect(subject['key with:several=escapes']).to eq('value with#several\escapes')
     end
   end
 

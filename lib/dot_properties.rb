@@ -111,7 +111,7 @@ class DotProperties
       if item[:value].nil? or item[:value].empty?
         escape(item[:key])
       else
-        "#{escape(item[:key])}#{item[:delimiter]}#{item[:value]}"
+        "#{escape(item[:key])}#{item[:delimiter]}#{encode(item[:value])}"
       end
     else
       item[:value]
@@ -125,7 +125,7 @@ class DotProperties
       { type: :blank, value: item }
     else
       key, delimiter, value = item.strip.split /(\s*(?<!\\)[\s:=]\s*)/, 2
-      { type: :value, key: unescape(key), delimiter: delimiter, value: value.to_s.gsub(/\\\n\s*/,'') }
+      { type: :value, key: unescape(decode(key)), delimiter: delimiter, value: unescape(decode(value.to_s.gsub(/\\\n\s*/,''))) }
     end
   end
 
@@ -133,12 +133,20 @@ class DotProperties
     @content.find { |item| item[:type] == :value and item[:key] == key }
   end
 
-  def escape(key)
-    key.gsub(/[\s:=]/) { |m| "\\#{m}" }
+  def encode(v)
+    v.gsub(/[\r\n]/) { |m| "\\u#{'%4.4X' % m.codepoints.to_a}" }.gsub(/\\/,'\\'*3)
   end
 
-  def unescape(key)
-    key.gsub(/\\/,'')
+  def decode(v)
+    v.gsub(/\\u([0-9A-Fa-f]{4})/) { |m| $1.hex.chr('UTF-8') }
+  end
+
+  def escape(v)
+    v.gsub(/[\s:=\\]/) { |m| "\\#{m}" }
+  end
+
+  def unescape(v)
+    v.gsub(/(?<!\\)\\/,'')
   end
 
 end
