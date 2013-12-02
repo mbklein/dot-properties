@@ -124,7 +124,7 @@ class DotProperties
     elsif item =~ /^\s*$/
       { type: :blank, value: item }
     else
-      key, delimiter, value = item.split /(\s*(?<!\\)[\s:=]\s*)/, 2
+      key, delimiter, value = item.strip.split /(\s*(?<!\\)[\s:=]\s*)/, 2
       { type: :value, key: unescape(key), delimiter: delimiter, value: value.to_s.gsub(/\\\n\s*/,'') }
     end
   end

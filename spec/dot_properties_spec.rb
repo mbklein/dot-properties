@@ -10,15 +10,15 @@ describe DotProperties do
   let(:propfile) { File.expand_path('../fixtures/sample.properties', __FILE__) }
   subject { DotProperties.load(propfile) }
 
-  let(:properties) { 16 }
-  let(:comments)   { 14 }
-  let(:blanks)     {  8 }
+  let(:properties) { 19 }
+  let(:comments)   { 15 }
+  let(:blanks)     { 10 }
 
   it { should be_an_instance_of(DotProperties) }
 
   describe "values" do
     it "should have the right number of properties" do
-      expect(subject.keys.length).to eq(16)
+      expect(subject.keys.length).to eq(properties)
     end
 
     it "should have the right values" do
@@ -32,6 +32,9 @@ describe DotProperties do
       expect(subject['foo bar:baz= quux']).to eq('this is getting ridiculous')
       expect(subject['lots of fruit']).to eq('apple, peach, kiwi, mango, banana, strawberry, raspberry')
       expect(subject['some.veggies']).to eq('carrot, potato, broccoli')
+      expect(subject['space.key1']).to eq('space.Value1')
+      expect(subject['space.key2']).to eq('space.Value2')
+      expect(subject['space.key3']).to eq('space.Multi word value')
       expect(subject['foo.empty']).to be_empty
       expect(subject['bar.empty']).to be_empty
       expect(subject['baz.empty']).to be_empty
