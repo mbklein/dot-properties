@@ -28,7 +28,7 @@ Or install it yourself as:
     require 'dot_properties'
 
     # Load a .properties file
-    props = DotProperties.new('sample.properties')
+    props = DotProperties.load('sample.properties')
 
     # Get a value
     props['foo']
