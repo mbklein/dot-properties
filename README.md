@@ -58,6 +58,7 @@ See the spec tests and fixture data for more examples.
 
 ## History
 
+- <b>0.1.2</b> - Improved escaping and Unicode (\uXXXX) support
 - <b>0.1.1</b> - Fix mishandled keys with leading whitespace (#1)
 - <b>0.1.0</b> - Initial release
 
