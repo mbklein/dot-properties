@@ -1,4 +1,5 @@
 require "dot_properties/version"
+require 'forwardable'
 
 class DotProperties
   extend Forwardable
