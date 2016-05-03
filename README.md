@@ -13,7 +13,7 @@ Reads and writes [Java .properties files](http://en.wikipedia.org/wiki/.properti
 
 Add this line to your application's Gemfile:
 
-    gem 'dot_properties'
+    gem 'dot-properties'
 
 And then execute:
 
