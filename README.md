@@ -58,6 +58,7 @@ See the spec tests and fixture data for more examples.
 
 ## History
 
+- <b>0.1.4</b> - Update bundler dependency due to [CVE-2019-3881](https://github.com/advisories/GHSA-g98m-96g9-wfjq)
 - <b>0.1.3</b> - Explicitly require 'forwardable' (jruby / mri2.x compat) (from @billdueber)
 - <b>0.1.2</b> - Improved escaping and Unicode (\uXXXX) support
 - <b>0.1.1</b> - Fix mishandled keys with leading whitespace (#1)
